@@ -1,0 +1,15 @@
+fastapi
+pydantic
+ibm_watsonx_ai
+openai==0.28
+pandas
+numpy
+transformers
+torch
+faiss-cpu
+scikit-learn
+python-multipart
+ipywidgets
+camel-tools
+os
+re
