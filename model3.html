@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>شغايا</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Reem+Kufi:wght@400..700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/htmx.org@1.8.0"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"></script>
+</head>
+
+<body class="bg-gray-50 text-gray-800">
+    <div class="container mx-auto py-8 px-4 max-w-3xl">
+        <div class="logos">
+            <div class="logo">
+                <a href="/">
+                    <img src="../static/img/logo3.png" alt="Logo 3" />
+                </a>
+            </div>
+        </div>
+        <div class="info">
+            <h2>
+                "مهبول يا قايل قضت… توه عمر دخانها" مثل ما قالها معزّي نقولها لكم، الي شفتوه في قول متردم ماهو آخره. كل
+                الي شفتوه راح يصير متاح للشعر النبطي ولكن نحتاج مساعدتكم، و"قومٍ تعاونوا ما ذلّوا" زودونا بقصائد نبطية
+                سواء من كتابتكم أو لشعراء آخرين بحيث نقدر نكون قاعدة بيانات كبيرة للشعر النبطي ونقدر بذلك نطوّع الذكاء
+                الإصطناعي لخدمة الشعر النبطي كذلك.
+            </h2>
+        </div>
+
+        <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            <form id="poem-form" hx-post="/add_poem/" hx-swap="none">
+                <div class="mb-4">
+                    <label for="sea" class="block text-gray-700 text-lg font-bold mb-2">البحر:</label>
+                    <input type="text" id="sea" name="sea"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        placeholder="مثال: الطويل" required>
+                </div>
+                <div class="mb-4">
+                    <label for="verse" class="block text-gray-700 text-lg font-bold mb-2">البيت:</label>
+                    <input type="text" id="verse" name="verse"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        placeholder="مثال: قفا نبك من ذكرى حبيب ومنزل" required>
+                </div>
+                <div class="mb-4">
+                    <label for="poet" class="block text-gray-700 text-lg font-bold mb-2">الشاعر:</label>
+                    <input type="text" id="poet" name="poet"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        placeholder="مثال: امرؤ القيس" required>
+                </div>
+                <div class="mb-4">
+                    <label for="dialect" class="block text-gray-700 text-lg font-bold mb-2">اللهجة:</label>
+                    <input type="text" id="dialect" name="dialect"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        placeholder="مثال: فصحى" required>
+                </div>
+
+                <button type="button" onclick="showConfirmModal()"
+                    class="mt-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                    <i class="fas fa-plus"></i>
+                    إضافة قصيدة
+                </button>
+            </form>
+        </div>
+
+        <div id="confirmModal"
+            class="fixed inset-0 opacity-0 invisible transition-all duration-300 ease-in-out flex items-center justify-center"
+            style="z-index: 1000;">
+            <div class="absolute inset-0 bg-gray-600 bg-opacity-50 transition-opacity duration-300"></div>
+
+            <div class="relative z-10">
+                <div
+                    class="bg-white rounded-lg shadow-xl p-6 w-96 transform scale-75 opacity-0 transition-all duration-300 modal-content">
+                    <h3 class="text-xl font-bold text-gray-900 mb-4 text-center">هل أنت متأكد من صحة المدخلات؟</h3>
+                    <div class="flex justify-center space-x-4 space-x-reverse">
+                        <button onclick="submitForm()"
+                            class="bg-green-500 text-white px-6 py-2 rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-300 transition-colors duration-200">
+                            نعم
+                        </button>
+                        <button onclick="hideConfirmModal()"
+                            class="bg-red-500 text-white px-6 py-2 rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-300 transition-colors duration-200">
+                            يجب مراجعتها
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="successMessage"
+            class="fixed top-4 left-1/2 transform -translate-x-1/2 opacity-0 pointer-events-none transition-all duration-300"
+            style="z-index: 1001;">
+            <div class="bg-green-100 border-r-4 border-green-500 text-green-700 p-4 rounded-lg shadow-xl">
+                <div class="flex items-center justify-center">
+                    <div class="flex-shrink-0 ml-4">
+                        <svg class="h-8 w-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <p class="text-lg font-bold">تم إضافة القصيدة بنجاح</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a href="/model2"
+        class="fixed bottom-2 left-2 text-white bg-pink-300 hover:bg-pink-400 px-4 py-2 rounded-md transition-colors duration-200 flex items-center justify-between">
+        <img src="../static/img/logo2.png" alt="Logo" class="h-6 w-9 ml-2" />
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+    </a>
+</body>
+<style>
+    body {
+        background: url(../static/img/bg-home.png);
+        background-size: cover;
+        /* background-position: center top;
+        background-repeat: repeat-y; */
+    }
+
+    .logos {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .logos .logo {
+        background-color: #7c338687;
+        padding: 35px 10px;
+        border-radius: 40px;
+        margin: 40px auto;    
+    }
+
+    .logos .logo img {
+        width: 160px;
+        height: 95px;
+    }
+
+    .info h2 {
+        margin-bottom: 40px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 25px;
+        background: url(../static/img/bg-paper1.png);
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        border-top-left-radius: 20px;
+        border-bottom-left-radius: 0;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 20px;
+        color: rgb(19, 0, 113);
+        font-size: 1.37em;
+        max-width: 650px;
+        font-family: "Aref Ruqaa", serif;
+        font-optical-sizing: auto;
+        font-weight: 400px;
+        font-style: normal;
+    }
+
+    #successMessage {
+        transition: all 0.3s ease-in-out;
+        transform: translateX(-50%) translateY(-1rem);
+    }
+
+    #successMessage.opacity-100 {
+        transform: translateX(-50%) translateY(0);
+    }
+
+    #confirmModal {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #confirmModal.active {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    #confirmModal .modal-content {
+        transform: scale(0.75);
+    }
+
+    #confirmModal .modal-content.active {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    @keyframes modalFadeIn {
+        from {
+            opacity: 0;
+            transform: scale(0.75);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    @keyframes modalFadeOut {
+        from {
+            opacity: 1;
+            transform: scale(1);
+        }
+        to {
+            opacity: 0;
+            transform: scale(0.75);
+        }
+    }
+</style>
+
+<script>
+    let isSubmitting = false;
+
+    function showConfirmModal() {
+        const modal = document.getElementById('confirmModal');
+        const modalContent = modal.querySelector('.modal-content');
+
+        // Show the modal container
+        modal.classList.add('active');
+
+        // Trigger animation after a short delay
+        setTimeout(() => {
+            modalContent.classList.add('active');
+        }, 10);
+    }
+
+    function hideConfirmModal() {
+        const modal = document.getElementById('confirmModal');
+        const modalContent = modal.querySelector('.modal-content');
+
+        // Start the fade out animation
+        modalContent.classList.remove('active');
+
+        // Hide the modal container after animation completes
+        setTimeout(() => {
+            modal.classList.remove('active');
+        }, 300);
+    }
+
+    function showSuccessMessage() {
+        const successMessage = document.getElementById('successMessage');
+        successMessage.classList.remove('opacity-0');
+        successMessage.classList.add('opacity-100');
+
+        setTimeout(() => {
+            successMessage.classList.remove('opacity-100');
+            successMessage.classList.add('opacity-0');
+        }, 3000);
+    }
+
+    function submitForm() {
+        if (isSubmitting) return;
+        isSubmitting = true;
+
+        const form = document.getElementById('poem-form');
+        const formData = new FormData(form);
+
+        fetch('/add_poem', {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => {
+                if (response.ok) {
+                    hideConfirmModal();
+                    showSuccessMessage();
+                    form.reset();
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            })
+            .finally(() => {
+                isSubmitting = false;
+            });
+    }
+
+    // Add event listener for HTMX response
+    document.body.addEventListener('htmx:afterRequest', function (evt) {
+        if (evt.detail.successful) {
+            hideConfirmModal();
+            showSuccessMessage();
+            document.getElementById('poem-form').reset();
+        }
+        isSubmitting = false;
+    });
+</script>
+
+</html>
