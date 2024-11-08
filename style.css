@@ -1,0 +1,111 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Aref Ruqaa", serif;
+    direction: rtl;
+}
+
+html{
+    scroll-behavior: smooth;
+}
+
+body{
+    margin: 0 0 0 0;
+    transition: 0.5s ease;
+}
+
+a{
+    text-decoration: none;
+}
+
+li{
+    list-style: none;
+}
+
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    position: relative;
+    flex-direction: column;
+}
+
+
+.allam {
+    background: url(./img/bg-home.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+
+
+.models {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.logos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+}
+
+.logos .logo {
+    background-color: #7c338687;
+    padding: 40px 15px;
+    border-radius: 40px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+.logos .logo img {
+    width: 170px;
+    height: 95px;
+}
+
+
+.text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.title {
+    font-size: 9em;
+    font-weight: 700;
+    color: whitesmoke;
+    text-align: center;
+    padding: 45px 0;
+    font-family: "Aref Ruqaa", serif;
+    font-optical-sizing: auto;
+    word-spacing: 0.1em;
+
+}
+
+.title-2 {
+    font-size: 3em;
+    font-weight: 700;
+    color: #ceabff;
+    text-align: right;
+    font-family: "Aref Ruqaa", serif;
+    font-optical-sizing: auto;
+    align-self: flex-end;
+    word-spacing: 0.1em;
+}
