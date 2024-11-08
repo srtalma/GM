@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سحر البردة</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Reem+Kufi:wght@400..700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/htmx.org@1.8.0"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"></script>
+</head>
+
+<body class="bg-gray-50 text-gray-800">
+    <div class="container mx-auto py-8 px-4 max-w-3xl">
+        <div class="logos">
+            <div class="logo">
+                <a href="/">
+                    <img src="../static/img/logo2.png" alt="Logo 2" />
+                </a>
+            </div>
+        </div>
+        <div class="info">
+            <h2>
+                "وإني وإن كنتُ الأخيرَ زمانُهُ… لآتٍ بما لم تَسْتَطِعْهُ الأوائل" هذا ما قاله ابو العلاء المعري قبل عشرة
+                قرون. هل تشارك أبو العلاء في هذه الرغبة؟ يساعدك ( نموذج قول مُترَدَّم ) في تحقيق رغبتك؛ فما عليك سوى
+                اختيار العصر والشاعر ليستقي منهما النموذج مستوى لغة القصيدة واسلوبها الشعري الذي ترغبه.
+            </h2>
+        </div>
+
+        <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            <form id="poem-form" hx-post="/generate_poem_model/" hx-trigger="submit" hx-target="#poem-output"
+                hx-swap="innerHTML" hx-indicator="#loading-indicator">
+                <div class="mb-4">
+                    <label for="era" class="block text-gray-700 text-lg font-bold mb-2">اختر العصر:</label>
+                    <select id="era" name="era"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        required>
+                        <option value="" disabled selected>-- اختر العصر --</option>
+                    </select>
+                </div>
+
+                <div class="mb-4">
+                    <label for="poet" class="block text-gray-700 text-lg font-bold mb-2">اختر الشاعر:</label>
+                    <select id="poet" name="poet"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        required>
+                        <option value="" disabled selected>-- قم بتحديد العصر أولاً --</option>
+                    </select>
+                </div>
+
+                <div class="mb-4">
+                    <label for="context" class="block text-gray-700 text-lg font-bold mb-2">اكتب موضوع الشعر أو الكلمة
+                        المفتاحية:</label>
+                    <input type="text" id="context" name="context"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        placeholder="مثال: الحزن، الفرح، الحب" required>
+                </div>
+
+                <button type="submit"
+                    class="mt-4 bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                    <span class="flex items-center justify-center gap-2">
+                        <i class="fas fa-pen-fancy"></i>
+                        إنشاء قصيدة
+                    </span>
+                </button>
+            </form>
+            <div id="loading-indicator" class="htmx-indicator mt-4">
+                <div class="flex items-center justify-center gap-3">
+                    <div class="animate-spin rounded-full h-8 w-8 border-4 border-indigo-500 border-t-transparent">
+                    </div>
+                    <span class="animate-pulse text-gray-700">يتم الآن توليد الأبيات...</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="poem-output" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mt-4 space-y-6">
+            <!-- New content will be inserted here -->
+        </div>
+    </div>
+    <!-- <a href="/" style="position: fixed; bottom: 10px; left: 10px; text-decoration: none; padding: 10px; background-color: #007BFF; color: white; border-radius: 5px;">Back to Main Page</a> -->
+    <a href="/model3"
+        class="fixed bottom-2 right-2 text-white bg-indigo-400 hover:bg-indigo-500 px-4 py-2 rounded-md transition-colors duration-200 flex items-center justify-between">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+        <img src="../static/img/logo3.png" alt="Logo" class="h-6 w-9 mr-2" />
+    </a>
+
+    <a href="/model1"
+        class="fixed bottom-2 left-2 text-white bg-pink-300 hover:bg-pink-400 px-4 py-2 rounded-md transition-colors duration-200 flex items-center justify-between">
+        <img src="../static/img/logo1.png" alt="Logo" class="h-6 w-9 ml-2" />
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+    </a>
+
+    <template id="poetry-result-template">
+        <div class="bg-white shadow-md rounded-lg overflow-hidden">
+            <div class="border-r-4 border-indigo-500">
+                <div class="p-6">
+                    <div class="flex items-center gap-3 mb-6">
+                        <i class="fas fa-scroll text-indigo-500 text-xl"></i>
+                        <h3 class="text-xl font-bold text-gray-800">القصيدة المولدة</h3>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="poetry-lines space-y-3 text-center">
+                            <!-- Poetry lines will be inserted here -->
+                        </div>
+                        <!-- <div class="border-t border-gray-200 pt-4 mt-6">
+                            <p class="text-sm text-gray-600 text-center">
+                                <span class="font-semibold">الوزن: </span>
+                                <span class="meter-pattern"></span>
+                            </p>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <button onclick="copyPoetry()"
+                class="w-full bg-gray-100 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-200 transition-colors duration-200 flex items-center justify-center gap-2">
+                <i class="fas fa-copy"></i>
+                نسخ القصيدة
+            </button>
+        </div>
+    </template>
+</body>
+
+<style>
+    body {
+        background: url(../static/img/bg-home.png);
+        background-size: cover;
+        /* background-position: center top;
+        background-repeat: repeat-y; */
+    }
+
+    .logos {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .logos .logo {
+        background-color: #7c338687;
+        padding: 35px 10px;
+        border-radius: 40px;
+        margin: 40px auto;    
+    }
+
+    .logos .logo img {
+        width: 160px;
+        height: 95px;
+    }
+
+    .info h2 {
+        margin-bottom: 40px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 25px;
+        background: url(../static/img/bg-paper1.png);
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        border-top-left-radius: 20px;
+        border-bottom-left-radius: 0;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 20px;
+        color: rgb(19, 0, 113);
+        font-size: 1.4em;
+        max-width: 650px;
+
+        font-family: "Aref Ruqaa", serif;
+        font-optical-sizing: auto;
+        font-weight: 400px;
+        font-style: normal;
+    }
+
+    .poetry-lines p {
+        font-size: 1.25rem;
+        line-height: 2;
+        transition: all 0.2s;
+    }
+
+    .poetry-lines p:hover {
+        color: rgb(19, 0, 113);
+        transform: scale(1.02);
+    }
+
+    .htmx-indicator {
+        display: none;
+    }
+
+    .htmx-request .htmx-indicator {
+        display: block;
+    }
+
+    .htmx-request.htmx-indicator {
+        display: block;
+    }
+
+    /* Animation for new content */
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    #poem-output>div {
+        animation: fadeIn 0.5s ease-out;
+    }
+</style>
+
+<script>
+    // Function to populate era dropdown
+    function populateEras() {
+        fetch('/eras')
+            .then(response => response.json())
+            .then(data => {
+                const eraDropdown = document.getElementById('era');
+                data.eras.forEach(era => {
+                    const option = document.createElement('option');
+                    option.value = era;
+                    option.textContent = era;
+                    eraDropdown.appendChild(option);
+                });
+            });
+    }
+
+    // Function to populate poet dropdown based on selected era
+    function populatePoets(selectedEra) {
+        fetch(`/poets`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ era: selectedEra })
+        })
+            .then(response => response.json())
+            .then(data => {
+                const poetDropdown = document.getElementById('poet');
+                poetDropdown.innerHTML = ''; // Clear previous options
+                data.poets.forEach(poet => {
+                    const option = document.createElement('option');
+                    option.value = poet;
+                    option.textContent = poet;
+                    poetDropdown.appendChild(option);
+                });
+            });
+    }
+
+    // Event listener for era dropdown change
+    document.getElementById('era').addEventListener('change', function () {
+        const selectedEra = this.value;
+        populatePoets(selectedEra);
+    });
+
+    // Initialize the dropdowns
+    populateEras();
+
+    // Function to handle form submission and display the generated poem
+    document.getElementById('poem-form').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const era = document.getElementById('era').value;
+        const poet = document.getElementById('poet').value;
+        const context = document.getElementById('context').value;
+
+        fetch('/generate_poem_model/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ poet_name: poet, user_topic: context })
+        })
+            .then(response => response.json())
+            .then(data => {
+                const poemOutput = document.getElementById('poem-output');
+                const template = document.getElementById('poetry-result-template').content.cloneNode(true);
+                const poetryLines = template.querySelector('.poetry-lines');
+                poetryLines.innerHTML = data.generated_poem.split('\n').map(line => `<p>${line}</p>`).join('');
+                poemOutput.innerHTML = '';
+                poemOutput.appendChild(template);
+            });
+    });
+
+    function copyPoetry() {
+        const poetryLines = document.querySelectorAll('.poetry-lines p');
+        const textToCopy = Array.from(poetryLines)
+            .map(line => line.textContent.trim())
+            .join('\n');
+
+        navigator.clipboard.writeText(textToCopy).then(() => {
+            const button = document.querySelector('button[onclick="copyPoetry()"]');
+            const originalHTML = button.innerHTML;
+            button.innerHTML = '<i class="fas fa-check"></i> تم النسخ';
+            setTimeout(() => {
+                button.innerHTML = originalHTML;
+            }, 2000);
+        });
+    }
+</script>
+
+</html>
